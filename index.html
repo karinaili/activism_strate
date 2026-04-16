@@ -6,299 +6,231 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GROUND CDG</title>
 <style>
-:root {
-  --bg: #0c0c0a;
-  --surface: #141410;
-  --border: #252520;
-  --red: #d63b35;
-  --red-dim: rgba(214,59,53,0.12);
-  --amber: #c97c1a;
-  --green: #4a8c42;
-  --text: #e8e4d8;
-  --muted: #7a7a6e;
-  --faint: #3a3a32;
-}
-
-- { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-background: var(–bg);
-color: var(–text);
+background-color: #0c0c0a;
+color: #e8e4d8;
 font-family: ‘Courier New’, Courier, monospace;
 font-size: 14px;
-line-height: 1.65;
-overflow-x: hidden;
+line-height: 1.7;
 }
 
-/* ── NOISE GRAIN OVERLAY ── */
-body::after {
-content: ‘’;
-position: fixed;
-inset: 0;
-background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’ opacity=‘0.04’/%3E%3C/svg%3E”);
-pointer-events: none;
-z-index: 9999;
-opacity: 0.35;
-}
+a { color: inherit; }
 
-/* ── HERO ── */
+/* HERO */
 .hero {
-min-height: 100svh;
+min-height: 100vh;
 display: flex;
 flex-direction: column;
 justify-content: flex-end;
-padding: 0 0 64px 0;
-position: relative;
-overflow: hidden;
-border-bottom: 1px solid var(–border);
-}
-
-.hero-bg {
-position: absolute;
-inset: 0;
-background:
-radial-gradient(ellipse 80% 60% at 50% 100%, rgba(214,59,53,0.08) 0%, transparent 70%),
-repeating-linear-gradient(
-90deg,
-transparent 0px,
-transparent 79px,
-var(–border) 79px,
-var(–border) 80px
-),
-repeating-linear-gradient(
-0deg,
-transparent 0px,
-transparent 79px,
-var(–border) 79px,
-var(–border) 80px
-);
-}
-
-.hero-content {
-position: relative;
-z-index: 1;
-padding: 0 48px;
+padding: 64px 48px;
+background-color: #0c0c0a;
+background-image:
+repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 80px),
+repeating-linear-gradient(0deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 80px);
+border-bottom: 1px solid #252520;
 }
 
 .eyebrow {
 font-size: 11px;
 letter-spacing: 0.18em;
 text-transform: uppercase;
-color: var(–red);
-margin-bottom: 28px;
-opacity: 0;
-animation: up 0.5s 0.1s ease forwards;
+color: #d63b35;
+margin-bottom: 24px;
 }
 
 .hero-title {
-font-family: ‘Arial Black’, ‘Arial Bold’, Gadget, sans-serif;
-font-size: clamp(80px, 20vw, 220px);
+font-family: Arial Black, Arial, sans-serif;
+font-size: 160px;
 font-weight: 900;
 line-height: 0.82;
 letter-spacing: -0.03em;
-color: var(–text);
-opacity: 0;
-animation: up 0.6s 0.25s ease forwards;
+color: #e8e4d8;
 }
 
-.hero-title em {
-font-style: normal;
-color: var(–red);
+.hero-title .red {
+color: #d63b35;
 display: block;
 }
 
-.hero-deck {
-margin-top: 36px;
-max-width: 560px;
+.hero-desc {
+margin-top: 32px;
+max-width: 540px;
 font-size: 13px;
-color: var(–muted);
-opacity: 0;
-animation: up 0.6s 0.4s ease forwards;
+color: #7a7a6e;
+line-height: 1.7;
 }
 
-.hero-stats {
+.stats-row {
 display: flex;
-gap: 0;
-margin-top: 52px;
-opacity: 0;
-animation: up 0.6s 0.55s ease forwards;
-border-top: 1px solid var(–border);
-border-left: 1px solid var(–border);
+margin-top: 48px;
+border-top: 1px solid #252520;
+border-left: 1px solid #252520;
 }
 
-.stat {
+.stat-box {
 flex: 1;
 padding: 20px 24px;
-border-right: 1px solid var(–border);
-border-bottom: 1px solid var(–border);
+border-right: 1px solid #252520;
+border-bottom: 1px solid #252520;
 }
 
-.stat-n {
-font-family: ‘Arial Black’, Gadget, sans-serif;
-font-size: clamp(28px, 5vw, 44px);
+.stat-num {
+font-family: Arial Black, Arial, sans-serif;
+font-size: 40px;
 font-weight: 900;
-color: var(–text);
+color: #d63b35;
 line-height: 1;
 }
 
-.stat-n span { color: var(–red); }
-
-.stat-l {
+.stat-lbl {
 font-size: 10px;
-color: var(–muted);
+color: #7a7a6e;
 text-transform: uppercase;
 letter-spacing: 0.1em;
 margin-top: 6px;
 }
 
-@keyframes up {
-from { opacity: 0; transform: translateY(18px); }
-to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── LAYOUT ── */
-.page {
-max-width: 960px;
+/* SECTIONS */
+.section {
+max-width: 920px;
 margin: 0 auto;
-}
-
-/* ── SECTION ── */
-.sec {
 padding: 80px 48px;
-border-bottom: 1px solid var(–border);
-opacity: 0;
-transform: translateY(20px);
-transition: opacity 0.55s ease, transform 0.55s ease;
+border-bottom: 1px solid #252520;
 }
-
-.sec.vis { opacity: 1; transform: none; }
 
 .sec-label {
 font-size: 10px;
-letter-spacing: 0.16em;
+letter-spacing: 0.18em;
 text-transform: uppercase;
-color: var(–red);
+color: #d63b35;
 margin-bottom: 10px;
 }
 
-.sec h2 {
-font-family: ‘Arial Black’, Gadget, sans-serif;
-font-size: clamp(26px, 4vw, 44px);
+.sec-title {
+font-family: Arial Black, Arial, sans-serif;
+font-size: 44px;
 font-weight: 900;
-line-height: 1.05;
+line-height: 1.0;
 letter-spacing: -0.02em;
-color: var(–text);
+color: #e8e4d8;
 margin-bottom: 28px;
 }
 
-.sec p {
-max-width: 680px;
-color: #b8b4a8;
+.sec-body {
+max-width: 660px;
+color: #b0aca0;
 margin-bottom: 14px;
 }
 
-.rule {
-width: 32px;
-height: 2px;
-background: var(–red);
-margin: 24px 0;
-}
-
-/* ── CALLOUT ── */
+/* CALLOUT */
 .callout {
-border-left: 3px solid var(–red);
-padding: 16px 20px;
-background: var(–red-dim);
-margin: 24px 0;
+max-width: 660px;
+border-left: 3px solid #d63b35;
+padding: 14px 18px;
+background-color: rgba(214, 59, 53, 0.1);
+margin: 22px 0;
 font-size: 13px;
 color: #c8c4b8;
-max-width: 680px;
 }
 
-.callout strong { color: var(–text); }
-
-/* ── INTERVIEW ── */
+/* INTERVIEW */
 .interview {
-border: 1px solid var(–border);
-padding: 28px 28px 24px;
+max-width: 660px;
+border: 1px solid #252520;
+background-color: #141410;
+padding: 28px;
 margin: 20px 0;
-background: var(–surface);
-max-width: 680px;
-position: relative;
 }
 
 .i-who {
 font-size: 10px;
 letter-spacing: 0.13em;
 text-transform: uppercase;
-color: var(–amber);
+color: #c97c1a;
 margin-bottom: 14px;
 }
 
 .i-quote {
 font-size: 15px;
-color: var(–text);
+color: #e8e4d8;
 line-height: 1.65;
-border-left: 2px solid var(–red);
+border-left: 2px solid #d63b35;
 padding-left: 16px;
 margin-bottom: 14px;
 }
 
-.i-context { font-size: 11px; color: var(–muted); }
+.i-ctx {
+font-size: 11px;
+color: #7a7a6e;
+}
 
-/* ── PHASES ── */
-.phases { display: grid; gap: 2px; margin-top: 24px; }
+.rule {
+width: 32px;
+height: 2px;
+background-color: #d63b35;
+margin: 28px 0;
+}
+
+/* PHASES */
+.phases { margin-top: 24px; }
 
 .phase {
-display: grid;
-grid-template-columns: 72px 1fr;
-border: 1px solid var(–border);
-background: var(–surface);
+display: flex;
+border: 1px solid #252520;
+background-color: #141410;
+margin-bottom: 2px;
 }
 
 .phase-n {
-background: var(–red);
-font-family: ‘Arial Black’, Gadget, sans-serif;
-font-size: 38px;
+width: 72px;
+flex-shrink: 0;
+background-color: #d63b35;
+font-family: Arial Black, Arial, sans-serif;
+font-size: 42px;
 font-weight: 900;
-color: white;
+color: #ffffff;
 display: flex;
 align-items: center;
 justify-content: center;
 }
 
-.phase-body { padding: 20px 24px; }
+.phase-body {
+padding: 22px 26px;
+}
 
 .phase-title {
 font-size: 10px;
 letter-spacing: 0.13em;
 text-transform: uppercase;
-color: var(–amber);
+color: #c97c1a;
 margin-bottom: 8px;
 }
 
-.phase-desc { font-size: 13px; color: #b8b4a8; }
+.phase-desc {
+font-size: 13px;
+color: #b0aca0;
+}
 
-/* ── CALCULATOR ── */
+/* CALCULATOR */
 .calc-wrap {
-border: 1px solid var(–border);
-background: var(–surface);
-overflow: hidden;
-margin: 32px 0;
+border: 1px solid #252520;
+background-color: #141410;
+margin: 28px 0;
+max-width: 700px;
 }
 
 .calc-head {
-background: var(–red);
+background-color: #d63b35;
 padding: 18px 28px;
 }
 
 .calc-head-title {
-font-family: ‘Arial Black’, Gadget, sans-serif;
+font-family: Arial Black, Arial, sans-serif;
 font-size: 20px;
 font-weight: 900;
-color: white;
-letter-spacing: -0.01em;
+color: #ffffff;
 }
 
 .calc-head-sub {
@@ -309,110 +241,117 @@ text-transform: uppercase;
 margin-top: 3px;
 }
 
-.calc-body { padding: 28px; }
+.calc-body {
+padding: 28px;
+}
 
 .calc-note {
 font-size: 12px;
-color: var(–muted);
-border-left: 2px solid var(–amber);
+color: #7a7a6e;
+border-left: 2px solid #c97c1a;
 padding-left: 14px;
 margin-bottom: 28px;
 }
 
-/* sliders */
-.slider-group { margin-bottom: 24px; }
+.slider-grp {
+margin-bottom: 26px;
+}
 
-.slider-label {
+.slider-top {
+display: flex;
+justify-content: space-between;
+align-items: baseline;
+margin-bottom: 8px;
+}
+
+.slider-lbl {
 font-size: 10px;
 text-transform: uppercase;
 letter-spacing: 0.13em;
-color: var(–amber);
-margin-bottom: 8px;
-display: flex;
-justify-content: space-between;
+color: #c97c1a;
 }
 
-.slider-label span {
-font-family: ‘Arial Black’, Gadget, sans-serif;
-font-size: 22px;
+.slider-val {
+font-family: Arial Black, Arial, sans-serif;
+font-size: 24px;
 font-weight: 900;
-color: var(–text);
-letter-spacing: -0.02em;
+color: #e8e4d8;
 }
 
-input[type=“range”] {
+input[type=range] {
 -webkit-appearance: none;
+appearance: none;
 width: 100%;
 height: 3px;
-background: var(–faint);
-border-radius: 0;
+background-color: #2a2a24;
 outline: none;
+border: none;
 }
 
-input[type=“range”]::-webkit-slider-thumb {
+input[type=range]::-webkit-slider-thumb {
 -webkit-appearance: none;
-width: 18px;
-height: 18px;
-background: var(–red);
-border-radius: 0;
+appearance: none;
+width: 20px;
+height: 20px;
+background-color: #d63b35;
 cursor: pointer;
-transition: transform 0.1s;
+border-radius: 0;
 }
 
-input[type=“range”]::-webkit-slider-thumb:active {
-transform: scale(1.2);
+input[type=range]::-moz-range-thumb {
+width: 20px;
+height: 20px;
+background-color: #d63b35;
+cursor: pointer;
+border-radius: 0;
+border: none;
 }
 
-/* results */
 .results {
-border: 1px solid var(–border);
+border: 1px solid #252520;
 margin-top: 28px;
 }
 
-.result-row {
+.res-row {
 display: flex;
 justify-content: space-between;
 align-items: center;
 padding: 14px 20px;
-border-bottom: 1px solid var(–border);
+border-bottom: 1px solid #1e1e18;
 gap: 16px;
 }
 
-.result-row:last-child { border-bottom: none; }
+.res-row:last-child {
+border-bottom: none;
+}
 
-.result-label {
+.res-lbl {
 font-size: 11px;
-color: var(–muted);
+color: #7a7a6e;
 text-transform: uppercase;
 letter-spacing: 0.08em;
-flex: 1;
 }
 
-.result-val {
-font-family: ‘Arial Black’, Gadget, sans-serif;
-font-size: 26px;
+.res-val {
+font-family: Arial Black, Arial, sans-serif;
+font-size: 28px;
 font-weight: 900;
-color: var(–red);
+color: #d63b35;
 white-space: nowrap;
-letter-spacing: -0.02em;
 }
 
-.result-val.a { color: var(–amber); }
-.result-val.g { color: var(–green); }
-
-/* share */
-.share-zone { margin-top: 24px; }
+.res-val.amber { color: #c97c1a; }
+.res-val.green { color: #4a8c42; }
 
 .share-note {
 font-size: 11px;
-color: var(–muted);
-margin-bottom: 14px;
+color: #7a7a6e;
+margin: 20px 0 12px;
 }
 
 .btn {
-display: inline-block;
-background: var(–red);
-color: white;
+background-color: #d63b35;
+color: #ffffff;
 font-family: ‘Courier New’, Courier, monospace;
 font-size: 11px;
 letter-spacing: 0.13em;
@@ -420,124 +359,131 @@ text-transform: uppercase;
 padding: 13px 28px;
 border: none;
 cursor: pointer;
-transition: background 0.15s, transform 0.1s;
-user-select: none;
+display: inline-block;
 }
 
-.btn:hover { background: #b52e28; }
-.btn:active { transform: scale(0.98); }
+.btn:hover { background-color: #b52e28; }
 
-.share-output {
+.share-out {
+display: none;
 margin-top: 16px;
 font-size: 12px;
-color: var(–green);
-border-left: 2px solid var(–green);
+color: #4a8c42;
+border-left: 2px solid #4a8c42;
 padding: 10px 14px;
-background: rgba(74,140,66,0.08);
-display: none;
+background-color: rgba(74,140,66,0.08);
 line-height: 1.6;
 }
 
-/* ── PETITION ── */
+/* PETITION */
 .petition {
-border: 1px solid var(–border);
+max-width: 680px;
+border: 1px solid #252520;
+background-color: #141410;
 padding: 32px;
-background: var(–surface);
-max-width: 700px;
 margin: 24px 0;
 }
 
-.petition h4 {
-font-family: ‘Arial Black’, Gadget, sans-serif;
+.petition-title {
+font-family: Arial Black, Arial, sans-serif;
 font-size: 20px;
 font-weight: 900;
-color: var(–text);
-margin-bottom: 20px;
+color: #e8e4d8;
 line-height: 1.2;
+margin-bottom: 20px;
 }
 
 .petition p {
 font-size: 13px;
-color: #b8b4a8;
+color: #b0aca0;
 margin-bottom: 14px;
+max-width: 100%;
 }
 
-.demands { list-style: none; margin: 20px 0; }
+.demand-list {
+list-style: none;
+margin: 20px 0;
+}
 
-.demands li {
+.demand-list li {
 padding: 11px 0;
-border-bottom: 1px solid var(–border);
+border-bottom: 1px solid #252520;
 font-size: 13px;
-color: var(–text);
+color: #e8e4d8;
 display: flex;
 gap: 12px;
 line-height: 1.5;
 }
 
-.demands li::before {
+.demand-list li:last-child { border-bottom: none; }
+
+.demand-list li::before {
 content: ‘→’;
-color: var(–red);
+color: #d63b35;
 flex-shrink: 0;
-margin-top: 1px;
 }
 
-.demands li:last-child { border-bottom: none; }
-
-/* ── TACTICS GRID ── */
+/* TACTICS */
 .tactics {
-display: grid;
-grid-template-columns: 1fr 1fr;
+display: flex;
+flex-wrap: wrap;
 gap: 2px;
 margin-top: 24px;
 }
 
 .tactic {
-background: var(–surface);
-border: 1px solid var(–border);
+flex: 1 1 calc(50% - 1px);
+background-color: #141410;
+border: 1px solid #252520;
 padding: 24px;
+min-width: 240px;
 }
 
-.tactic-num {
-font-family: ‘Arial Black’, Gadget, sans-serif;
-font-size: 40px;
+.tactic-n {
+font-family: Arial Black, Arial, sans-serif;
+font-size: 44px;
 font-weight: 900;
-color: var(–faint);
+color: #252520;
 line-height: 1;
 margin-bottom: 12px;
 }
 
 .tactic-title {
-font-size: 11px;
-letter-spacing: 0.12em;
+font-size: 10px;
+letter-spacing: 0.13em;
 text-transform: uppercase;
-color: var(–amber);
+color: #c97c1a;
 margin-bottom: 10px;
 }
 
-.tactic p { font-size: 12px; color: #9a9890; margin: 0; }
+.tactic p {
+font-size: 12px;
+color: #7a7a6e;
+}
 
-/* ── FOOTER ── */
+/* FOOTER */
 footer {
 padding: 48px;
 text-align: center;
 font-size: 10px;
-color: var(–faint);
+color: #3a3a32;
 letter-spacing: 0.1em;
 text-transform: uppercase;
-border-top: 1px solid var(–border);
+border-top: 1px solid #252520;
 }
 
-/* ── MOBILE ── */
+/* MOBILE */
 @media (max-width: 640px) {
-.hero-content { padding: 0 24px; }
-.sec { padding: 56px 24px; }
+.hero { padding: 40px 24px 48px; }
+.hero-title { font-size: 80px; }
+.stats-row { flex-wrap: wrap; }
+.stat-box { flex: 1 1 45%; }
+.section { padding: 56px 24px; }
+.sec-title { font-size: 32px; }
+.phase-n { width: 54px; font-size: 30px; }
 .calc-body { padding: 20px; }
-.hero-stats { flex-wrap: wrap; }
-.stat { flex: 1 1 45%; }
-.tactics { grid-template-columns: 1fr; }
-.phase { grid-template-columns: 56px 1fr; }
-.phase-n { font-size: 28px; }
-.petition { padding: 24px; }
+.tactic { flex: 1 1 100%; }
+.petition { padding: 22px; }
 }
 </style>
 
@@ -547,113 +493,102 @@ border-top: 1px solid var(–border);
 <!-- HERO -->
 
 <div class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <div class="eyebrow">Activism + Digital Design — CDG Airport Expansion</div>
-    <h1 class="hero-title">GROUND<em>CDG</em></h1>
-    <p class="hero-deck">After stopping Terminal 4, residents and environmental groups now fight a fragmented expansion: new boarding halls (4–8M passengers), a freight terminal, and ADP's target of 344 extra flights per day by 2050.</p>
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-n"><span>+344</span></div>
-        <div class="stat-l">Extra flights/day by 2050</div>
-      </div>
-      <div class="stat">
-        <div class="stat-n">8<span>M</span></div>
-        <div class="stat-l">New passenger capacity</div>
-      </div>
-      <div class="stat">
-        <div class="stat-n"><span>+19</span>%</div>
-        <div class="stat-l">ADP traffic growth target</div>
-      </div>
-      <div class="stat">
-        <div class="stat-n">3.6<span>M</span></div>
-        <div class="stat-l">People under flight paths</div>
-      </div>
+  <div class="eyebrow">Activism + Digital Design — Local Struggle Brief</div>
+  <div class="hero-title">
+    GROUND
+    <span class="red">CDG</span>
+  </div>
+  <p class="hero-desc">After stopping Terminal 4, residents and environmental groups now fight a fragmented expansion: new boarding halls (4–8M passengers), a freight terminal, and ADP's target of 344 extra flights per day by 2050.</p>
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-num">+344</div>
+      <div class="stat-lbl">Extra flights/day by 2050</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">8M</div>
+      <div class="stat-lbl">New passenger capacity</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">+19%</div>
+      <div class="stat-lbl">ADP traffic growth target</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">3.6M</div>
+      <div class="stat-lbl">People under flight paths</div>
     </div>
   </div>
 </div>
 
-<div class="page">
+<!-- SECTIONS -->
 
-<!-- 01 STRUGGLE -->
-
-<div class="sec">
+<div class="section">
   <div class="sec-label">01 — The Struggle</div>
-  <h2>What We're Fighting</h2>
-  <p>After successfully forcing the government to abandon a new Terminal 4 at CDG, environmental associations and residents' collectives now face a harder battle. ADP is pushing infrastructure investments through separate administrative procedures — new boarding halls, a freight hub — that collectively represent the same expansion under a different name.</p>
-  <p>344 additional flights per day by 2050. No public debate. No cumulative environmental assessment.</p>
+  <div class="sec-title">What We're Fighting</div>
+  <p class="sec-body">After successfully forcing the government to abandon Terminal 4 at CDG, environmental associations and residents' collectives now face a harder battle. ADP is pushing infrastructure through separate administrative procedures — new boarding halls, a freight hub — that collectively represent the same expansion under a different name.</p>
+  <p class="sec-body">344 additional flights per day by 2050. No public debate. No cumulative environmental assessment.</p>
   <div class="callout"><strong>The strategic problem:</strong> Incremental expansion is harder to fight than a single mega-project. ADP is betting that breaking it into pieces will break the coalition too.</div>
 </div>
 
-<!-- 02 INTERVIEWS -->
-
-<div class="sec">
+<div class="section">
   <div class="sec-label">02 — Field Research</div>
-  <h2>Interviews</h2>
+  <div class="sec-title">Interviews</div>
 
   <div class="interview">
     <div class="i-who">Sophie L., 52 — Resident, Goussainville (under CDG approach path since 1970)</div>
     <div class="i-quote">We stopped them once. But they don't give up — they just repackage it. Now it's "boarding halls", not a "terminal." The word changes, the concrete stays the same. My grandchildren will inherit this noise if we lose.</div>
-    <div class="i-context">Member of ADVOCNAR residents' collective for 11 years. Her house sits directly under the runway 3 approach. Average exposure: 72 dB Lden — well above the WHO's 45 dB nighttime limit.</div>
+    <div class="i-ctx">Member of ADVOCNAR residents' collective for 11 years. Average noise exposure: 72 dB Lden — well above the WHO 45 dB nighttime limit.</div>
   </div>
 
   <div class="interview">
     <div class="i-who">Karim B., 38 — Environmental lawyer, urban planning law</div>
-    <div class="i-quote">ADP is required to conduct a public utility declaration for infrastructure over a certain threshold. The question is whether the sum of these "smaller" projects triggers that threshold. If we can prove they're a single project presented as fragments, we have a case.</div>
-    <div class="i-context">Consultant for Réseau Action Climat. Flagged "environmental fragmentation" as a documented industry tactic to avoid cumulative impact assessments under France's Code de l'environnement.</div>
+    <div class="i-quote">ADP is required to conduct a public utility declaration for infrastructure over a certain threshold. If we can prove these are a single project presented as fragments, we have a case.</div>
+    <div class="i-ctx">Consultant for Réseau Action Climat. Flagged "environmental fragmentation" as a documented industry tactic to avoid cumulative impact assessments under France's Code de l'environnement.</div>
   </div>
 
   <div class="rule"></div>
-  <div class="callout"><strong>Key insight:</strong> Both interviews point to the same vulnerability — the public doesn't connect individual projects to the 2050 total. The 344 flights/day figure is buried in corporate roadmaps. Our strategy must make that connection visceral and undeniable.</div>
+  <div class="callout"><strong>Key insight:</strong> Both interviews point to the same vulnerability — the public doesn't connect individual projects to the 2050 total. The 344 flights/day figure is buried in corporate roadmaps. Our strategy must make that connection visceral.</div>
 </div>
 
-<!-- 03 PROBLEMATIC -->
-
-<div class="sec">
+<div class="section">
   <div class="sec-label">03 — The Problematic</div>
-  <h2>Fragmentation<br>as a Weapon</h2>
-  <p>We are not fighting a terminal. We are fighting a logic: that growth is inevitable, that infrastructure can be approved piece by piece without accounting for the whole, and that the people living closest to the noise have the least power over the decision.</p>
-  <p><strong style="color:var(--text)">Our problematic:</strong> How do we make the cumulative, invisible impact of airport expansion legible — and outrageable — to people who don't yet feel personally affected?</p>
-  <div class="callout">The moment someone in Paris's 10th understands that their nephew in Sarcelles sleeps with 72 dB of engine noise, and that ADP's plan adds 344 more flights over that same house — that's when coalitions grow.</div>
+  <div class="sec-title">Fragmentation<br>as a Weapon</div>
+  <p class="sec-body">We are not fighting a terminal. We are fighting a logic: that growth is inevitable, that infrastructure can be approved piece by piece without accounting for the whole, and that the people living closest to the noise have the least power over the decision.</p>
+  <div class="callout"><strong>Our problematic:</strong> How do we make the cumulative, invisible impact of airport expansion legible — and outrageable — to people who don't yet feel personally affected?</div>
 </div>
 
-<!-- 04 STRATEGY -->
-
-<div class="sec">
+<div class="section">
   <div class="sec-label">04 — Campaign Strategy</div>
-  <h2>Three Phases</h2>
+  <div class="sec-title">Three Phases</div>
   <div class="phases">
     <div class="phase">
       <div class="phase-n">1</div>
       <div class="phase-body">
         <div class="phase-title">Make the Invisible Visible — Months 1–3</div>
-        <div class="phase-desc">Launch the GROUND CDG impact calculator. Door-to-door in affected communes (Goussainville, Sarcelles, Villeneuve-le-Roi) to gather real noise testimonies mapped to postcodes. Publish an open data map of projected noise corridors under the 2050 plan. Goal: 10,000 personalized impact cards shared on social media.</div>
+        <div class="phase-desc">Launch the GROUND CDG impact calculator. Door-to-door in affected communes (Goussainville, Sarcelles, Villeneuve-le-Roi) to gather noise testimonies mapped to postcodes. Publish an open data map of projected noise corridors under the 2050 plan. Goal: 10,000 personalized impact cards shared on social media.</div>
       </div>
     </div>
     <div class="phase">
       <div class="phase-n">2</div>
       <div class="phase-body">
         <div class="phase-title">Build the Coalition — Months 3–6</div>
-        <div class="phase-desc">Connect residents' collectives with climate groups (XR, ANV-COP21), legal teams, and local MPs. Organize a "Night of 344 Flights" — a real-time sound installation in Paris where speakers replay CDG noise for the exact duration of the extra daily flights. Present the legal fragmentation argument to sympathetic parliamentarians.</div>
+        <div class="phase-desc">Connect residents' collectives with climate groups (XR, ANV-COP21), legal teams, and local MPs. Organize a "Night of 344 Flights" — a real-time sound installation in Paris where speakers replay CDG noise for the duration of the extra daily flights. Present the legal fragmentation argument to sympathetic parliamentarians.</div>
       </div>
     </div>
     <div class="phase">
       <div class="phase-n">3</div>
       <div class="phase-body">
         <div class="phase-title">Legal + Political Pressure — Months 6–18</div>
-        <div class="phase-desc">File a legal challenge demanding a cumulative environmental impact assessment for all planned ADP investments. Deliver the petition to the Ministère de la Transition Écologique and the Autorité environnementale. Push for CDG expansion to be included in France's ZFE (low-emission zone) national debate.</div>
+        <div class="phase-desc">File a legal challenge demanding a cumulative environmental impact assessment for all planned ADP investments. Deliver the petition to the Ministère de la Transition Écologique and the Autorité environnementale. Push for CDG expansion to be included in France's ZFE national debate.</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- 05 DIGITAL TOOL -->
-
-<div class="sec">
+<div class="section">
   <div class="sec-label">05 — Digital Innovation</div>
-  <h2>Your House<br>Under 2050</h2>
-  <p>The core digital tool is a personalized cumulative impact calculator. Enter your distance from CDG, time spent at home, household size — and see what ADP's 2050 plan means for your daily life in concrete, personal numbers. Then share it.</p>
-  <p>This transforms an abstract corporate roadmap into a felt, shareable reality. It turns 344 flights/day from a statistic into: <em style="color:var(--text)">"That's 7 more flights over my street every hour."</em></p>
+  <div class="sec-title">Your House Under 2050</div>
+  <p class="sec-body">A personalized cumulative impact calculator. Enter your distance from CDG, time at home, household size — and see what ADP's 2050 plan means for your daily life in concrete numbers. Then share it.</p>
+  <p class="sec-body">This transforms an abstract corporate roadmap into a felt, personal, shareable reality. 344 flights/day becomes: <em>"That's 7 more flights over my street every hour."</em></p>
 
   <div class="calc-wrap">
     <div class="calc-head">
@@ -661,160 +596,154 @@ border-top: 1px solid var(–border);
       <div class="calc-head-sub">What ADP's 2050 plan means for where you live</div>
     </div>
     <div class="calc-body">
-      <p class="calc-note">ADP's published roadmap: +19% traffic growth = 344 additional flights/day by 2050. Adjust the sliders for your situation.</p>
+      <p class="calc-note">ADP's roadmap: +19% traffic growth = 344 additional flights/day by 2050. Adjust sliders for your situation.</p>
 
 ```
-  <div class="slider-group">
-    <div class="slider-label">Distance from CDG <span id="v-dist">8 km</span></div>
+  <div class="slider-grp">
+    <div class="slider-top">
+      <span class="slider-lbl">Distance from CDG</span>
+      <span class="slider-val" id="v-dist">8 km</span>
+    </div>
     <input type="range" id="s-dist" min="1" max="50" value="8">
   </div>
-  <div class="slider-group">
-    <div class="slider-label">Hours at home per day <span id="v-hrs">14 hrs</span></div>
+
+  <div class="slider-grp">
+    <div class="slider-top">
+      <span class="slider-lbl">Hours at home per day</span>
+      <span class="slider-val" id="v-hrs">14 hrs</span>
+    </div>
     <input type="range" id="s-hrs" min="4" max="24" value="14">
   </div>
-  <div class="slider-group">
-    <div class="slider-label">People in your household <span id="v-ppl">3</span></div>
+
+  <div class="slider-grp">
+    <div class="slider-top">
+      <span class="slider-lbl">People in your household</span>
+      <span class="slider-val" id="v-ppl">3</span>
+    </div>
     <input type="range" id="s-ppl" min="1" max="8" value="3">
   </div>
 
   <div class="results">
-    <div class="result-row">
-      <div class="result-label">Extra flights over your area / day</div>
-      <div class="result-val" id="r-flights">—</div>
+    <div class="res-row">
+      <span class="res-lbl">Extra flights over your area / day</span>
+      <span class="res-val" id="r-flights">—</span>
     </div>
-    <div class="result-row">
-      <div class="result-label">Noise events above 65 dB / week</div>
-      <div class="result-val a" id="r-noise">—</div>
+    <div class="res-row">
+      <span class="res-lbl">Noise events above 65 dB / week</span>
+      <span class="res-val amber" id="r-noise">—</span>
     </div>
-    <div class="result-row">
-      <div class="result-label">Sleep disruptions / person / year</div>
-      <div class="result-val a" id="r-sleep">—</div>
+    <div class="res-row">
+      <span class="res-lbl">Sleep disruptions / person / year</span>
+      <span class="res-val amber" id="r-sleep">—</span>
     </div>
-    <div class="result-row">
-      <div class="result-label">Health cost estimate / household / year</div>
-      <div class="result-val" id="r-health">—</div>
+    <div class="res-row">
+      <span class="res-lbl">Health cost estimate / household / year</span>
+      <span class="res-val" id="r-health">—</span>
     </div>
-    <div class="result-row">
-      <div class="result-label">Extra CO₂ from 344 flights/day</div>
-      <div class="result-val g" id="r-co2">—</div>
+    <div class="res-row">
+      <span class="res-lbl">Extra CO₂ from 344 flights / day</span>
+      <span class="res-val green" id="r-co2">—</span>
     </div>
   </div>
 
-  <div class="share-zone">
-    <p class="share-note">→ Generate your impact card, share it, tag your local MP.</p>
-    <button class="btn" onclick="genShare()">Generate My Impact Card</button>
-    <div class="share-output" id="share-out"></div>
-  </div>
+  <p class="share-note">→ Generate your impact card and share it with your local MP.</p>
+  <button class="btn" onclick="genShare()">Generate My Impact Card</button>
+  <div class="share-out" id="share-out"></div>
 </div>
 ```
 
   </div>
 </div>
 
-<!-- 06 PETITION -->
-
-<div class="sec">
+<div class="section">
   <div class="sec-label">06 — The Petition</div>
-  <h2>Formal Demand</h2>
+  <div class="sec-title">Formal Demand</div>
 
   <div class="petition">
-    <h4>For a Cumulative Environmental Assessment of CDG Expansion</h4>
-    <p><strong style="color:var(--text)">To:</strong> The Minister of Ecological Transition, the Autorité environnementale, and the Board of Aéroports de Paris</p>
+    <div class="petition-title">For a Cumulative Environmental Assessment of CDG Expansion</div>
+    <p><strong>To:</strong> The Minister of Ecological Transition, the Autorité environnementale, and the Board of Aéroports de Paris</p>
     <p>We, the undersigned residents, environmental organizations, and citizens, call for an immediate halt to all infrastructure investment decisions at Roissy-CDG pending a full, transparent, and independent cumulative environmental impact assessment.</p>
-    <p>ADP's strategy — approving new boarding halls, freight infrastructure, and capacity increases through separate administrative procedures — bypasses the spirit of France's environmental law. These projects are not independent: they serve a single objective of +19% traffic growth by 2050, meaning 344 additional flights over our communities every day.</p>
+    <p>ADP's strategy — approving new boarding halls, freight infrastructure, and capacity increases through separate administrative procedures — bypasses the spirit of France's environmental law. These projects serve a single objective: +19% traffic growth by 2050, meaning 344 additional flights over our communities every day.</p>
     <p>We stopped Terminal 4. We will not accept the same expansion delivered in fragments.</p>
-    <ul class="demands">
+    <ul class="demand-list">
       <li>A legally binding cumulative environmental impact assessment covering all planned CDG infrastructure investments and their 2050 traffic targets, conducted by an independent body.</li>
-      <li>A public inquiry specifically addressing noise pollution, air quality, and public health for all communes within the 65 dB Lden isophone.</li>
-      <li>Alignment of ADP's infrastructure roadmap with France's obligations under the Paris Agreement and the national ZFE framework.</li>
+      <li>A public inquiry addressing noise pollution, air quality, and public health for all communes within the 65 dB Lden isophone.</li>
+      <li>Alignment of ADP's roadmap with France's obligations under the Paris Agreement and the national ZFE framework.</li>
       <li>No construction permits for new boarding halls or freight terminals until assessments are complete and publicly debated.</li>
       <li>Binding caps on annual flight movements at CDG — not growth targets — as the baseline for any future planning permission.</li>
     </ul>
-    <p style="margin-top:20px"><em style="color:#9a9890">The sky is not a corporate resource. The health of 3.6 million people under these flight paths is not a line in an infrastructure budget.</em></p>
+    <p style="margin-top: 20px; color: #7a7a6e; font-style: italic;">The sky is not a corporate resource. The health of 3.6 million people under these flight paths is not a line in an infrastructure budget.</p>
   </div>
 </div>
 
-<!-- 07 TACTICS -->
-
-<div class="sec">
+<div class="section">
   <div class="sec-label">07 — Additional Digital Tactics</div>
-  <h2>The Full Toolkit</h2>
+  <div class="sec-title">The Full Toolkit</div>
   <div class="tactics">
     <div class="tactic">
-      <div class="tactic-num">01</div>
+      <div class="tactic-n">01</div>
       <div class="tactic-title">The Cumulative Map</div>
-      <p>Open-source embeddable map: every planned ADP project overlaid with noise isophones, air quality models, and school/hospital locations. Built on OpenStreetMap + public ADP filings. Updated as permits are filed.</p>
+      <p>Open-source embeddable map: every planned ADP project overlaid with noise isophones, air quality models, and school/hospital locations. Built on OpenStreetMap + public ADP filings.</p>
     </div>
     <div class="tactic">
-      <div class="tactic-num">02</div>
+      <div class="tactic-n">02</div>
       <div class="tactic-title">The 344 Alarm</div>
-      <p>A browser notification that fires once per "extra flight" throughout the day — 344 interruptions, calibrated to real ADP scheduling data. You can't ignore 344 disruptions. That's the point.</p>
+      <p>A browser notification that fires once per "extra flight" throughout the day — 344 interruptions, calibrated to real ADP scheduling data. You cannot ignore 344 disruptions in a day.</p>
     </div>
     <div class="tactic">
-      <div class="tactic-num">03</div>
+      <div class="tactic-n">03</div>
       <div class="tactic-title">Shareholder Proxy Tool</div>
-      <p>France's Caisse des Dépôts holds 33% of ADP. A tool generating a pre-written shareholder concern letter any citizen can sign and send directly to CDC — pressure through ownership, not just the streets.</p>
+      <p>France's Caisse des Dépôts holds 33% of ADP. A tool that generates a shareholder concern letter any citizen can send directly to CDC — pressure through ownership, not just the streets.</p>
     </div>
     <div class="tactic">
-      <div class="tactic-num">04</div>
+      <div class="tactic-n">04</div>
       <div class="tactic-title">Sound Archive</div>
-      <p>Crowdsourced noise recordings from residents, tagged with GPS and dB levels. Forms a legal-quality sonic archive submitted as supporting evidence in the cumulative impact assessment demand.</p>
+      <p>Crowdsourced noise recordings from residents, tagged with GPS and dB levels — a legal-quality sonic archive submitted as evidence in the cumulative impact assessment demand.</p>
     </div>
   </div>
 </div>
-
-</div><!-- /page -->
 
 <footer>
   GROUND CDG — Collective for a Grounded Future · Roissy, Île-de-France<br>
-  <span style="opacity:.4">Activism &amp; Digital Design — Academic Brief 2026</span>
+  <span style="opacity: 0.5; margin-top: 6px; display: block;">Activism &amp; Digital Design — Academic Brief 2026</span>
 </footer>
 
 <script>
-// ── SCROLL REVEAL ──
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
-}, { threshold: 0.08 });
-document.querySelectorAll('.sec').forEach(el => io.observe(el));
-
-// ── CALCULATOR ──
-const dist = document.getElementById('s-dist');
-const hrs  = document.getElementById('s-hrs');
-const ppl  = document.getElementById('s-ppl');
-
 function calc() {
-  const d = +dist.value, h = +hrs.value, p = +ppl.value;
+  var d = parseInt(document.getElementById('s-dist').value);
+  var h = parseInt(document.getElementById('s-hrs').value);
+  var p = parseInt(document.getElementById('s-ppl').value);
 
   document.getElementById('v-dist').textContent = d + ' km';
-  document.getElementById('v-hrs').textContent  = h + ' hrs';
-  document.getElementById('v-ppl').textContent  = p;
+  document.getElementById('v-hrs').textContent = h + ' hrs';
+  document.getElementById('v-ppl').textContent = p;
 
-  const ratio      = Math.max(0, 1 - d / 36);
-  const flightsDay = Math.round(344 * ratio);
-  const noiseWk    = Math.round(flightsDay * (h / 24) * 7);
-  const sleepYr    = Math.round(flightsDay * 0.22 * 1.4 * 365);
-  const healthPP   = Math.round(ratio * 2800 * (ratio > 0.4 ? 1.3 : 0.7));
-  const healthTot  = healthPP * p;
-  const co2        = (344 * 25).toLocaleString('fr-FR') + ' t/day';
+  var ratio = Math.max(0, 1 - d / 36);
+  var flights = Math.round(344 * ratio);
+  var noise = Math.round(flights * (h / 24) * 7);
+  var sleep = Math.round(flights * 0.22 * 1.4 * 365);
+  var health = Math.round(ratio * 2800 * (ratio > 0.4 ? 1.3 : 0.7)) * p;
+  var co2 = (344 * 25).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' t/day';
 
-  document.getElementById('r-flights').textContent = flightsDay > 0 ? '+' + flightsDay : '0';
-  document.getElementById('r-noise').textContent   = noiseWk;
-  document.getElementById('r-sleep').textContent   = sleepYr.toLocaleString('fr-FR');
-  document.getElementById('r-health').textContent  = healthTot > 0 ? '€' + healthTot.toLocaleString('fr-FR') : '€0';
-  document.getElementById('r-co2').textContent     = co2;
+  document.getElementById('r-flights').textContent = flights > 0 ? '+' + flights : '0';
+  document.getElementById('r-noise').textContent = noise;
+  document.getElementById('r-sleep').textContent = sleep.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  document.getElementById('r-health').textContent = health > 0 ? '\u20ac' + health.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '\u20ac0';
+  document.getElementById('r-co2').textContent = co2;
 }
 
-[dist, hrs, ppl].forEach(el => el.addEventListener('input', calc));
+document.getElementById('s-dist').addEventListener('input', calc);
+document.getElementById('s-hrs').addEventListener('input', calc);
+document.getElementById('s-ppl').addEventListener('input', calc);
 calc();
 
-// ── SHARE ──
 function genShare() {
-  const d = dist.value;
-  const f = document.getElementById('r-flights').textContent;
-  const s = document.getElementById('r-sleep').textContent;
-  const out = document.getElementById('share-out');
+  var d = document.getElementById('s-dist').value;
+  var f = document.getElementById('r-flights').textContent;
+  var s = document.getElementById('r-sleep').textContent;
+  var out = document.getElementById('share-out');
   out.style.display = 'block';
-  out.textContent = `"At ${d}km from CDG, ADP's 2050 plan means ${f} extra flights over my area daily and ${s} sleep disruptions per person per year. This is not progress. #GroundCDG #StopADPExpansion"`;
+  out.textContent = '"At ' + d + 'km from CDG, ADP\'s 2050 plan means ' + f + ' extra flights over my area daily and ' + s + ' sleep disruptions per person per year. This is not progress. #GroundCDG #StopADPExpansion"';
 }
 </script>
 
